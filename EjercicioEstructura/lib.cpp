@@ -1,6 +1,7 @@
 #include "lib.hpp"
 
-//Caso 3 .. conocer el precio de un paquete
+
+// Conocer el precio de un paquete
 float CalcularPrecioPaquete(float peso)
 {
     return peso * 7;

@@ -4,36 +4,85 @@ using namespace std;
 
 int main()
 {
-    //Agregar un bucle que permita consultar al usuario si continua o no en el sistema
     struct InfoPaquete infoPaq;
-    //Registro  caso 1
-    cout<<"Ingresa el nombre de la persona que envia"; 
-    cin>>infoPaq.nombreEnvia;
-    cout<<"Ingresa el nombre de la persona que recibe";
-    cin>>infoPaq.nombreRecibe;
+    int opc;
+    int pesoLb;
+    int cont;
+    do
+    {
+        cout << "Ingrese una opcion:"
+             << "\n"
+             << "1 - Registrate en el sistema"
+             << "\n"
+             << "2 - Conocer el precio de un paquete"
+             << "\n"
+             << "3 - Facturar paquetes"
+             << "\n";
+        cin >> opc;
 
-    //Todo el proceso enviar el paquete y facturar caso 2
-    cout << "Ingrese cuantos paquetes desea calcular el precio";
-    cin >> infoPaq.cant;
-    for (int i = 1; i <= infoPaq.cant; i++)
-    {
-        cout << "Ingrese el peso del paquete, el precio de Lb es $7.00";
-        cin >> infoPaq.PesoPaq[i];
-        infoPaq.PrecioPaq[i] = CalcularPrecioPaquete(infoPaq.PesoPaq[i]);
-    }
-    for (int i = 1; i <= infoPaq.cant; i++)
-    {
-        cout << "Peso del paquete " << i << " " << infoPaq.PesoPaq[i] << "lbs"
-             << "Precio del paquete "
-             << " - $" << infoPaq.PrecioPaq[i] << endl;
-    }
-    infoPaq.descuento = CalcularDescuento(CalcularTotal(infoPaq.cant, infoPaq.PrecioPaq), CalcularPesoTotal(infoPaq.cant, infoPaq.PesoPaq));
-    infoPaq.totalPagar = CalcularTotal(infoPaq.cant, infoPaq.PrecioPaq);
-    cout << "El peso total de la encomienda " << CalcularPesoTotal(infoPaq.cant, infoPaq.PesoPaq) << " lbs"<< endl;
-    cout << "El total a pagar sin descuento $" << infoPaq.totalPagar << endl;
-    cout << "El descuento obtenido $" << infoPaq.descuento << endl;
-    cout << "El total a pagar $" << infoPaq.totalPagar - infoPaq.descuento;
+        switch (opc)
+        {
+        case 1: // Registro
+            cout << "Ingrese el nombre para facturar"
+                 << "\n";
+            cin >> infoPaq.nombre;
+            cout << "Ingrese el lugar para el envio "
+                 << "\n";
+            cin >> infoPaq.lugarEnvio;
+            cout << "Ingrese el nombre de la persona que recibe "
+                 << "\n";
+            cin >> infoPaq.personaRecibe;
+            cout << " --------------- Detalles del registro -------------- "
+                 << "\n";
+            cout << "El nombre de la persona que envia " << infoPaq.nombre << "\n";
+            cout << "El nombre de la persona que recibe " << infoPaq.personaRecibe << "\n";
+            cout << "El lugar de envio " << infoPaq.lugarEnvio << "\n";
+            break;
+        case 2: // Calcular precio de un paquete
+            cout << "Ingresa el peso de un paquete en Lbs. ";
+            cin >> pesoLb;
+            cout << "El costo del paquete $" << CalcularPrecioPaquete(pesoLb) << " ($7.00 Lb)"
+                 << "\n";
+            break;
+        case 3: // Ingreso y detalle de pago del paquete
+            cout << "Ingrese la cantidad de paquetes a facturar ";
+            cin >> infoPaq.cantPaquetes;
+            for (int i = 1; i <= infoPaq.cantPaquetes; i++)
+            {
+                cout << "Ingrese el peso del paquete, el precio de Lb es $7.00 ";
+                cin >> infoPaq.pesoPaquetes[i];
+                infoPaq.PrecioPaquetes[i] = CalcularPrecioPaquete(infoPaq.pesoPaquetes[i]);
+            }
+            for (int i = 1; i <= infoPaq.cantPaquetes; i++)
+            {
+                cout << "Peso del paquete " << i << " " << infoPaq.pesoPaquetes[i] << "lbs"
+                     << "Precio del paquete "
+                     << " - $" << infoPaq.PrecioPaquetes[i] << "\n";
+            }
+            infoPaq.descuento = CalcularDescuento(CalcularTotal(infoPaq.cantPaquetes, infoPaq.PrecioPaquetes), CalcularPesoTotal(infoPaq.cantPaquetes, infoPaq.pesoPaquetes));
+            infoPaq.TotalFacturar = CalcularTotal(infoPaq.cantPaquetes, infoPaq.PrecioPaquetes);
+            infoPaq.pesoTotal = CalcularPesoTotal(infoPaq.cantPaquetes, infoPaq.pesoPaquetes);
+            cout << " ----------------- Detalles de factura ------------------ "
+                 << "\n";
+            cout << "El nombre de la persona que envia " << infoPaq.nombre << "\n";
+            cout << "El nombre de la persona que recibe " << infoPaq.personaRecibe << "\n";
+            cout << "El lugar de envio " << infoPaq.lugarEnvio << "\n";
+            cout << "La cantidad de paquetes a enviar es " << infoPaq.cantPaquetes << "\n";
+            cout << "El peso total de la encomienda " << infoPaq.pesoTotal << " lbs"
+                 << "\n";
+            cout << "El total a pagar sin descuento $" << infoPaq.TotalFacturar << "\n";
+            cout << "El descuento obtenido $" << infoPaq.descuento << "\n";
+            cout << "El total a pagar $" << infoPaq.TotalFacturar - infoPaq.descuento << "\n";
+            break;
+        default:
+            cout << "Opcion no valida";
+            break;
+        }
+
+        cout << "Desea continuar en el sistema 1-Si, 0-No"
+             << "\n";
+        cin >> cont;
+    } while (cont == 1);
 
     return 0;
 }
-
